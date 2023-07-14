@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is CLI application that manages a spiritual center's collection of gemstones
+This is a CLI application that manages a spiritual center's collection of gemstones
 and crystals, for use by spirtual health practitioners with the center's members.
 
 ***
