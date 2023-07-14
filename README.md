@@ -28,7 +28,7 @@ As a user I want to be able to:
 
 ## Tables for Database
 
-### 1. Gemstones Table: This table will store details about each gemstone or crystal in the collection.
+#### 1. Gemstones Table: This table will store details about each gemstone or crystal in the collection.
 
 - ID: A unique identifier for each gemstone or crystal.
 - Name: The name of the gemstone or crystal.
@@ -36,18 +36,18 @@ As a user I want to be able to:
 - Properties: Spiritual properties associated with the gemstone or crystal.
 - Availability: Whether the gemstone or crystal is currently available or in use.
 
-### 2. Practitioners Table: This table will store details about each practitioner.
+#### 2. Practitioners Table: This table will store details about each practitioner.
 
 - ID: A unique identifier for each practitioner.
 - Name: The name of the practitioner.
 - Specialization: The practitioner's area of specialization or expertise.
 
-### 3. Members Table: This table will store details about each member.
+#### 3. Members Table: This table will store details about each member.
 
 - ID: A unique identifier for each member.
 - Name: The name of the member.
 
-### 4. Usage Table: This table will track the usage of each gemstone or crystal.
+#### 4. Usage Table: This table will track the usage of each gemstone or crystal.
 
 - ID: A unique identifier for each usage record.
 - Gemstone ID: The ID of the gemstone or crystal being used.
