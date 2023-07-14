@@ -25,6 +25,7 @@ As a user I want to be able to:
 - Display information about a particular gemstone or crystal.
 - Track which practitioner is using which gemstone or crystal, and with which member.
 
+
 ## Tables for Database
 
 ### 1. Gemstones Table: This table will store details about each gemstone or crystal in the collection.
