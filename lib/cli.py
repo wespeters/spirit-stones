@@ -1,5 +1,6 @@
+from datetime import datetime
 import click
-from db.models import Gemstone, Session
+from db.models import Gemstone, Practitioner, Member, Usage, Session
 from sqlalchemy import or_
 
 @click.group()
@@ -102,11 +103,136 @@ def search_gemstone(query):
         click.echo("-------")
 
 
+@click.command()
+@click.option('--gemstone_id', type=int, prompt='ID of the gemstone', help='The ID of the gemstone.')
+@click.option('--practitioner_id', type=int, prompt='ID of the practitioner', help='The ID of the practitioner.')
+@click.option('--member_id', type=int, prompt='ID of the member', help='The ID of the member.')
+def add_usage(gemstone_id, practitioner_id, member_id):
+    """Add a new usage record."""
+    session = Session()
+    
+    new_usage = Usage(gemstone_id=gemstone_id, practitioner_id=practitioner_id, member_id=member_id, start_date=datetime.now())
+    session.add(new_usage)
+    
+    session.commit()
+    click.echo(f"Usage added with ID {new_usage.id}.")
+
+
+@click.command()
+@click.option('--name', prompt='Name of the member', help='The name of the member.')
+def add_member(name):
+    """Add a new member."""
+    session = Session()
+    
+    new_member = Member(name=name)
+    session.add(new_member)
+    
+    session.commit()
+    click.echo(f"Member added with ID {new_member.id}.")
+
+@click.command()
+@click.option('--name', prompt='Name of the practitioner', help='The name of the practitioner.')
+@click.option('--specialization', prompt='Specialization of the practitioner', help='The specialization of the practitioner.')
+def add_practitioner(name, specialization):
+    """Add a new practitioner."""
+    session = Session()
+    
+    new_practitioner = Practitioner(name=name, specialization=specialization)
+    session.add(new_practitioner)
+    
+    session.commit()
+    click.echo(f"Practitioner added with ID {new_practitioner.id}.")
+
+
+@click.command()
+@click.option('--id', type=int, prompt='ID of the member to remove', help='The ID of the member to remove.')
+def remove_member(id):
+    """Remove a member."""
+    session = Session()
+    
+    member = session.query(Member).get(id)
+    if member is not None:
+        session.delete(member)
+        session.commit()
+        click.echo(f"Removed member with ID {id}.")
+    else:
+        click.echo(f"No member found with ID {id}.")
+
+
+@click.command()
+@click.option('--id', type=int, prompt='ID of the practitioner to remove', help='The ID of the practitioner to remove.')
+def remove_practitioner(id):
+    """Remove a practitioner."""
+    session = Session()
+    
+    practitioner = session.query(Practitioner).get(id)
+    if practitioner is not None:
+        session.delete(practitioner)
+        session.commit()
+        click.echo(f"Removed practitioner with ID {id}.")
+    else:
+        click.echo(f"No practitioner found with ID {id}.")
+
+
+@click.command()
+def list_gemstones():
+    """List all gemstones in the collection."""
+    session = Session()
+    
+    gemstones = session.query(Gemstone).all()
+    
+    for gemstone in gemstones:
+        click.echo(f"ID: {gemstone.id}")
+        click.echo(f"Name: {gemstone.name}")
+        click.echo(f"Color: {gemstone.color}")
+        click.echo(f"Properties: {gemstone.properties}")
+        click.echo(f"Availability: {'Available' if gemstone.availability else 'Not Available'}")
+        click.echo("-------")
+
+cli.add_command(list_gemstones)
+
+
+@click.command()
+def list_practitioners():
+    """List all practitioners."""
+    session = Session()
+    
+    practitioners = session.query(Practitioner).all()
+    
+    for practitioner in practitioners:
+        click.echo(f"ID: {practitioner.id}")
+        click.echo(f"Name: {practitioner.name}")
+        click.echo(f"Specialization: {practitioner.specialization}")
+        click.echo("-------")
+
+cli.add_command(list_practitioners)
+
+
+@click.command()
+def list_members():
+    """List all members."""
+    session = Session()
+    
+    members = session.query(Member).all()
+    
+    for member in members:
+        click.echo(f"ID: {member.id}")
+        click.echo(f"Name: {member.name}")
+        click.echo("-------")
+
+cli.add_command(list_members)
+
+
 cli.add_command(add_gemstone)
 cli.add_command(remove_gemstone)
 cli.add_command(update_gemstone)
 cli.add_command(view_gemstone)
 cli.add_command(search_gemstone)
+cli.add_command(add_usage)
+cli.add_command(add_member)
+cli.add_command(add_practitioner)
+cli.add_command(remove_member)
+cli.add_command(remove_practitioner)
 
 if __name__ == '__main__':
     cli()
