@@ -19,6 +19,8 @@ def add_gemstone(name, color, properties):
     session.add(new_gemstone)
     
     session.commit()
+    click.echo(f"Gemstone added with ID {new_gemstone.id}.")
+
 
 cli.add_command(add_gemstone)
 
@@ -29,7 +31,7 @@ def remove_gemstone(id):
     """Remove a gemstone from the collection."""
     session = Session()
     
-    gemstone = session.query(Gemstone).get(id)
+    gemstone = session.get(Gemstone, id)
     if gemstone is not None:
         session.delete(gemstone)
         session.commit()
