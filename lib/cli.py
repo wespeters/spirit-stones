@@ -110,6 +110,28 @@ def add_usage(gemstone_id, practitioner_id, member_id):
 
 
 @click.command()
+@click.option('--id', type=int, prompt='ID of the usage to update', help='The ID of the usage to update.')
+@click.option('--gemstone_id', type=int, prompt='New ID of the gemstone', help='The new ID of the gemstone.')
+@click.option('--practitioner_id', type=int, prompt='New ID of the practitioner', help='The new ID of the practitioner.')
+@click.option('--member_id', type=int, prompt='New ID of the member', help='The new ID of the member.')
+@click.option('--end_date', prompt='New end date of the usage (YYYY-MM-DD)', help='The new end date of the usage.')
+def update_usage(id, gemstone_id, practitioner_id, member_id, end_date):
+    """Update a usage."""
+    session = Session()
+    
+    usage = session.query(Usage).get(id)
+    if usage is not None:
+        usage.gemstone_id = gemstone_id
+        usage.practitioner_id = practitioner_id
+        usage.member_id = member_id
+        usage.end_date = datetime.strptime(end_date, "%Y-%m-%d")
+        session.commit()
+        click.echo(f"Updated usage with ID {id}.")
+    else:
+        click.echo(f"No usage found with ID {id}.")
+
+
+@click.command()
 @click.option('--name', prompt='Name of the member', help='The name of the member.')
 def add_member(name):
     """Add a new member."""
@@ -244,16 +266,17 @@ def list_members():
 
 
 cli.add_command(add_gemstone)
-cli.add_command(remove_gemstone)
 cli.add_command(update_gemstone)
+cli.add_command(remove_gemstone)
 cli.add_command(view_gemstone)
 cli.add_command(search_gemstone)
 cli.add_command(add_usage)
+cli.add_command(update_usage)
 cli.add_command(add_member)
 cli.add_command(update_member)
+cli.add_command(remove_member)
 cli.add_command(add_practitioner)
 cli.add_command(update_practitioner)
-cli.add_command(remove_member)
 cli.add_command(remove_practitioner)
 cli.add_command(list_gemstones)
 cli.add_command(list_practitioners)
