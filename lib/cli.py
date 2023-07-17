@@ -23,9 +23,6 @@ def add_gemstone(name, color, properties):
     click.echo(f"Gemstone added with ID {new_gemstone.id}.")
 
 
-cli.add_command(add_gemstone)
-
-
 @click.command()
 @click.option('--id', prompt='ID of the gemstone to remove', help='The ID of the gemstone to remove.')
 def remove_gemstone(id):
@@ -39,8 +36,6 @@ def remove_gemstone(id):
         click.echo(f"Removed gemstone with ID {id}.")
     else:
         click.echo(f"No gemstone found with ID {id}.")
-
-cli.add_command(remove_gemstone)
 
 
 @click.command()
@@ -62,8 +57,6 @@ def update_gemstone(id, name, color, properties):
     else:
         click.echo(f"No gemstone found with ID {id}.")
 
-cli.add_command(update_gemstone)
-
 
 @click.command()
 @click.option('--id', prompt='ID of the gemstone to view', help='The ID of the gemstone to view.')
@@ -80,8 +73,6 @@ def view_gemstone(id):
         click.echo(f"Availability: {'Available' if gemstone.availability else 'Not Available'}")
     else:
         click.echo(f"No gemstone found with ID {id}.")
-
-cli.add_command(view_gemstone)
 
 
 @click.command()
@@ -189,8 +180,6 @@ def list_gemstones():
         click.echo(f"Availability: {'Available' if gemstone.availability else 'Not Available'}")
         click.echo("-------")
 
-cli.add_command(list_gemstones)
-
 
 @click.command()
 def list_practitioners():
@@ -205,8 +194,6 @@ def list_practitioners():
         click.echo(f"Specialization: {practitioner.specialization}")
         click.echo("-------")
 
-cli.add_command(list_practitioners)
-
 
 @click.command()
 def list_members():
@@ -220,8 +207,6 @@ def list_members():
         click.echo(f"Name: {member.name}")
         click.echo("-------")
 
-cli.add_command(list_members)
-
 
 cli.add_command(add_gemstone)
 cli.add_command(remove_gemstone)
@@ -233,6 +218,9 @@ cli.add_command(add_member)
 cli.add_command(add_practitioner)
 cli.add_command(remove_member)
 cli.add_command(remove_practitioner)
+cli.add_command(list_gemstones)
+cli.add_command(list_practitioners)
+cli.add_command(list_members)
 
 if __name__ == '__main__':
     cli()
