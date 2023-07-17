@@ -47,7 +47,7 @@ def update_gemstone(id, name, color, properties):
     """Update a gemstone in the collection."""
     session = Session()
     
-    gemstone = session.query(Gemstone).get(id)
+    gemstone = session.get(Gemstone, id)
     if gemstone is not None:
         gemstone.name = name
         gemstone.color = color
@@ -64,7 +64,7 @@ def view_gemstone(id):
     """View a gemstone in the collection."""
     session = Session()
     
-    gemstone = session.query(Gemstone).get(id)
+    gemstone = session.get(Gemstone, id)
     if gemstone is not None:
         click.echo(f"ID: {gemstone.id}")
         click.echo(f"Name: {gemstone.name}")
@@ -121,6 +121,23 @@ def add_member(name):
     session.commit()
     click.echo(f"Member added with ID {new_member.id}.")
 
+
+@click.command()
+@click.option('--id', type=int, prompt='ID of the member to update', help='The ID of the member to update.')
+@click.option('--name', prompt='New name of the member', help='The new name of the member.')
+def update_member(id, name):
+    """Update a member."""
+    session = Session()
+    
+    member = session.get(Member, id)
+    if member is not None:
+        member.name = name
+        session.commit()
+        click.echo(f"Updated member with ID {id}.")
+    else:
+        click.echo(f"No member found with ID {id}.")
+
+
 @click.command()
 @click.option('--name', prompt='Name of the practitioner', help='The name of the practitioner.')
 @click.option('--specialization', prompt='Specialization of the practitioner', help='The specialization of the practitioner.')
@@ -136,12 +153,30 @@ def add_practitioner(name, specialization):
 
 
 @click.command()
+@click.option('--id', type=int, prompt='ID of the practitioner to update', help='The ID of the practitioner to update.')
+@click.option('--name', prompt='New name of the practitioner', help='The new name of the practitioner.')
+@click.option('--specialization', prompt='New specialization of the practitioner', help='The new specialization of the practitioner.')
+def update_practitioner(id, name, specialization):
+    """Update a practitioner."""
+    session = Session()
+    
+    practitioner = session.get(Practitioner, id)
+    if practitioner is not None:
+        practitioner.name = name
+        practitioner.specialization = specialization
+        session.commit()
+        click.echo(f"Updated practitioner with ID {id}.")
+    else:
+        click.echo(f"No practitioner found with ID {id}.")
+
+
+@click.command()
 @click.option('--id', type=int, prompt='ID of the member to remove', help='The ID of the member to remove.')
 def remove_member(id):
     """Remove a member."""
     session = Session()
     
-    member = session.query(Member).get(id)
+    member = session.get(Member, id)
     if member is not None:
         session.delete(member)
         session.commit()
@@ -156,7 +191,7 @@ def remove_practitioner(id):
     """Remove a practitioner."""
     session = Session()
     
-    practitioner = session.query(Practitioner).get(id)
+    practitioner = session.get(Practitioner, id)
     if practitioner is not None:
         session.delete(practitioner)
         session.commit()
@@ -215,7 +250,9 @@ cli.add_command(view_gemstone)
 cli.add_command(search_gemstone)
 cli.add_command(add_usage)
 cli.add_command(add_member)
+cli.add_command(update_member)
 cli.add_command(add_practitioner)
+cli.add_command(update_practitioner)
 cli.add_command(remove_member)
 cli.add_command(remove_practitioner)
 cli.add_command(list_gemstones)
