@@ -17,6 +17,17 @@ class Gemstone(Base):
     
     usages = relationship('Usage', back_populates='gemstone')
 
+    def update_availability(self, session):
+        # Check if there is a usage without an end date
+        open_usage = session.query(Usage).filter(Usage.gemstone_id == self.id, Usage.end_date == None).first()
+
+        # If there is such a usage, the gemstone is not available
+        if open_usage:
+            self.availability = False
+        else:
+            self.availability = True
+            
+
 class Practitioner(Base):
     __tablename__ = 'practitioners'
     

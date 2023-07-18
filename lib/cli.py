@@ -104,7 +104,10 @@ def add_usage(gemstone_id, practitioner_id, member_id):
     
     new_usage = Usage(gemstone_id=gemstone_id, practitioner_id=practitioner_id, member_id=member_id, start_date=datetime.now())
     session.add(new_usage)
-    
+   
+    gemstone = session.get(Gemstone, gemstone_id)
+    gemstone.update_availability(session)
+
     session.commit()
     click.echo(f"Usage added with ID {new_usage.id}.")
 
@@ -129,6 +132,12 @@ def update_usage(id, gemstone_id, practitioner_id, member_id, end_date):
         click.echo(f"Updated usage with ID {id}.")
     else:
         click.echo(f"No usage found with ID {id}.")
+
+    gemstone = session.get(Gemstone, gemstone_id)
+    gemstone.update_availability(session)
+
+    session.commit()
+    click.echo(f"Usage updated.")
 
 
 @click.command()
