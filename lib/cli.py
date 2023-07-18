@@ -5,7 +5,7 @@ from sqlalchemy import or_
 
 @click.group()
 def cli():
-    pass
+    """Welcome to Spirit Stones, the Gemstone Management Application!"""
 
 
 @click.command()
