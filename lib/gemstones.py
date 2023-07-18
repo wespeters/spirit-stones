@@ -70,7 +70,7 @@ def view_gemstone(id):
 
 
 @click.command()
-@click.option('--query', prompt='Search query', help='The search query.')
+@click.option('--query', prompt='Search for a gemstone by name, color, or properties', help='The search query.')
 def search_gemstone(query):
     """Search for a gemstone in the collection."""
     session = Session()
