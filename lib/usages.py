@@ -11,10 +11,18 @@ def add_usage(gemstone_id, practitioner_id, member_id):
     """Add a new usage record."""
     session = Session()
     
+    gemstone = session.get(Gemstone, gemstone_id)
+
+    if gemstone is None:
+        click.echo(f"Error: No gemstone found with ID {gemstone_id}.")
+        return
+    elif not gemstone.availability:
+        click.echo(f"Error: Gemstone ID {gemstone_id} is not available.")
+        return
+    
     new_usage = Usage(gemstone_id=gemstone_id, practitioner_id=practitioner_id, member_id=member_id, start_date=datetime.now())
     session.add(new_usage)
    
-    gemstone = session.get(Gemstone, gemstone_id)
     gemstone.update_availability(session)
 
     session.commit()
