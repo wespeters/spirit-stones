@@ -65,7 +65,7 @@ As a user I am able to:
 
 #### `cli.py`
 
-This Python script defines a command-line interface (CLI) for a the application. It uses the `click` library, a Python package that simplifies the creation of command line interfaces. The script starts by importing the click module.
+This Python script defines a command-line interface (CLI) for a the application. It uses the `click` library, a Python package that simplifies the creation of command line interfaces. The script starts by importing the `click` module.
 
 It then imports commands from several modules: `gemstones`, `members`, `practitioners`, and `usages`. Each of these modules contains a set of commands related to their respective domains (managing gemstones, members, practitioners, and usages).
 
