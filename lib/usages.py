@@ -17,7 +17,7 @@ def add_usage(gemstone_id, practitioner_id, member_id):
         click.echo(f"Error: No gemstone found with ID {gemstone_id}.")
         return
     elif not gemstone.availability:
-        click.echo(f"Error: Gemstone ID {gemstone_id} is not available.")
+        click.echo(f"Gemstone with ID {gemstone_id} is not available.")
         return
     
     new_usage = Usage(gemstone_id=gemstone_id, practitioner_id=practitioner_id, member_id=member_id, start_date=datetime.now())
