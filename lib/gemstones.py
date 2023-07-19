@@ -34,9 +34,9 @@ def remove_gemstone(id):
 
 @click.command()
 @click.option('--id', prompt='ID of the gemstone to update', help='The ID of the gemstone to update.')
-@click.option('--name', prompt='New name of the gemstone', help='The new name of the gemstone.')
-@click.option('--color', prompt='New color of the gemstone', help='The new color of the gemstone.')
-@click.option('--properties', prompt='New properties of the gemstone', help='The new properties of the gemstone.')
+@click.option('--name', prompt='Updated name of the gemstone', help='The new name of the gemstone.')
+@click.option('--color', prompt='Updated color of the gemstone', help='The new color of the gemstone.')
+@click.option('--properties', prompt='Updated properties of the gemstone', help='The new properties of the gemstone.')
 def update_gemstone(id, name, color, properties):
     """Update a gemstone in the collection."""
     session = Session()
