@@ -16,7 +16,7 @@ Spirit Stones.
 
 ## Functionality/User Stories
 
-As a user I want to be able to:
+As a user I am able to:
 - Add new gemstones or crystals to the collection.
 - Remove gemstones or crystals from the collection.
 - Update details about a particular gemstone or crystal in the collection.
