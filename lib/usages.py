@@ -8,7 +8,7 @@ from db.models import Session, Usage, Gemstone
 @click.option('--practitioner_id', type=int, prompt='ID of the practitioner', help='The ID of the practitioner.')
 @click.option('--member_id', type=int, prompt='ID of the member', help='The ID of the member.')
 def add_usage(gemstone_id, practitioner_id, member_id):
-    """Add a new usage record."""
+    """Add a new usage session."""
     session = Session()
     
     gemstone = session.get(Gemstone, gemstone_id)
@@ -26,17 +26,17 @@ def add_usage(gemstone_id, practitioner_id, member_id):
     gemstone.update_availability(session)
 
     session.commit()
-    click.echo(f"Usage added with ID {new_usage.id}.")
+    click.echo(f"Usage session added with ID {new_usage.id}.")
 
 
 @click.command()
-@click.option('--id', type=int, prompt='ID of the usage to update', help='The ID of the usage to update.')
+@click.option('--id', type=int, prompt='ID of the usage session to update', help='The ID of the usage to update.')
 @click.option('--gemstone_id', type=int, prompt='New ID of the gemstone', help='The new ID of the gemstone.')
 @click.option('--practitioner_id', type=int, prompt='New ID of the practitioner', help='The new ID of the practitioner.')
 @click.option('--member_id', type=int, prompt='New ID of the member', help='The new ID of the member.')
 @click.option('--end_date', prompt='New end date of the usage (YYYY-MM-DD)', help='The new end date of the usage.')
 def update_usage(id, gemstone_id, practitioner_id, member_id, end_date):
-    """Update a usage."""
+    """Update a usage session."""
     session = Session()
     
     usage = session.query(Usage).get(id)
@@ -46,9 +46,9 @@ def update_usage(id, gemstone_id, practitioner_id, member_id, end_date):
         usage.member_id = member_id
         usage.end_date = datetime.strptime(end_date, "%Y-%m-%d")
         session.commit()
-        click.echo(f"Updated usage with ID {id}.")
+        click.echo(f"Updated usage session with ID {id}.")
     else:
-        click.echo(f"No usage found with ID {id}.")
+        click.echo(f"No usage session found with ID {id}.")
 
     gemstone = session.get(Gemstone, gemstone_id)
     gemstone.update_availability(session)
@@ -58,9 +58,9 @@ def update_usage(id, gemstone_id, practitioner_id, member_id, end_date):
 
 
 @click.command()
-@click.option('--id', prompt='ID of the usage to remove', help='The ID of the usage to remove.')
+@click.option('--id', prompt='ID of the usage session to remove', help='The ID of the usage to remove.')
 def remove_usage(id):
-    """Remove a usage from the collection."""
+    """Remove a usage session from the collection."""
     session = Session()
     
     usage = session.query(Usage).get(id)
@@ -74,7 +74,7 @@ def remove_usage(id):
 
 @click.command()
 def list_usages():
-    """List all usages in the collection."""
+    """List all usage sessions in the collection."""
     session = Session()
     
     usages = session.query(Usage).all()
