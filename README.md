@@ -79,7 +79,7 @@ The specific commands supported by this CLI and their functionalities are define
 
 #### `gemstones.py`
 
-This file defines a series of command-line interface (CLI) commands. It uses the `click` library for creating these commands and SQLAlchemy for interacting with a database.
+This file defines a series of command-line interface (CLI) commands. It uses the `click` library for creating these commands and SQLAlchemy for interacting with the SQLite database.
 
 Here's a breakdown of the functions:
 
