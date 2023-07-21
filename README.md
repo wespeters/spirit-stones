@@ -31,6 +31,20 @@ As a user I am able to:
 - Add, update, and delete practitioners.
 - View a list of all practitioners.
 
+## Model Structure for SQLite Database 
+
+#### `models.py`
+
+This file is the model structure for the SQLite database using the SQLAlchemy ORM (Object 
+Relational Mapping) in Python. Here is a breakdown of what it does:
+- `engine = create_engine('sqlite:///spiritstones.db')`: This line of code creates a new engine that will interact with the SQLite database 'spiritstones.db'.
+- `Session = sessionmaker(bind=engine)`: This line sets up a factory to create new Session objects, which are the primary interface for persistence operations in SQLAlchemy.
+- `Base = declarative_base()`: This line sets up a base class for declarative class definitions. The new base class will be given a metaclass that produces appropriate Table objects and makes the appropriate mapper() calls based on the information provided declaratively in the class and any subclasses of the class.
+- `class Gemstone(Base)`: This class represents a table in the database named 'gemstones'. The table has columns for `id`, `name`, `color`, `properties`, and `availability`. It also has a relationship with the 'Usage' class. The `update_availability` method updates the availability status of a gemstone based on whether there is an open usage session.
+- `class Practitioner(Base)`: This class represents a table in the database named 'practitioners'. The table has columns for `id`, `name`, and `specialization`. It also has a relationship with the 'Usage' class.
+- `class Member(Base)`: This class represents a table in the database named 'members'. The table has columns for `id` and `name`. It also has a relationship with the 'Usage' class.
+- `class Usage(Base)`: This class represents a table in the database named 'usages'. The table has columns for `id`, `gemstone_id`, `practitioner_id`, `member_id`, `start_date`, and `end_date`. It also has relationships with the 'Gemstone', 'Practitioner', and 'Member' classes. The `gemstone_id`, `practitioner_id`, and `member_id` are foreign keys linking to the respective tables.
+
 ## Tables for Database
 
 #### 1. Gemstones Table: This table stores details about each gemstone or crystal in the collection.
